@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #7a5fb8;
+            padding: 15px 0;
+            display: flex;
+            justify-content: space-between; /* Space between left and right sections */
+            align-items: center;
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .logout {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: auto;
+            display: flex;
+            align-items: center; /* Align items vertically within the flex container */
+        }
+
+        .logout:hover {
+            text-decoration: underline;
+        }
+
+        
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 30px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .project-card {
+            padding: 20px;
+            background-color: #f1f1f1;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .project-card h3 {
+            margin-bottom: 10px;
+        }
+        .project-card .buttons {
+            margin: 10px 0;
+        }
+        .project-card .buttons i {
+            font-size: 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            color: #7a5fb8;
+        }
+        .project-card .view-btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #7a5fb8;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .project-card .view-btn:hover {
+            background-color: #5f469d;
+        }
+        footer {
+            background-color: #7a5fb8;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: auto;
+        }
+        .liked {
+            color: green;
+        }
+        .disliked {
+            color: red;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            overflow: auto;
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 500px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .comment-box {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        .submit-btn {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #7a5fb8;
+            color: white;
+            border-radius: 4px;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background-color: #5f469d;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href=index.html>Home</a>
+            <a href=features.html>Features</a>
+            <a href=projects.html>Projects</a>
+            <a href=upload.html>Upload Projects</a>
+        </nav>
+        <a href=index.html class="logout">Logout</a> 
+    </header>
+    
+    <div class="container">
+        <h1>Projects</h1>
+        <div class="project-grid">
+            <div class="project-card">
+                <h3>Project 1</h3>
+                <p>Project 1 Description...</p>
+                <div class="buttons">
+                    <i class="fas fa-thumbs-up" onclick="toggleLikeDislike(this, 'like')"></i>
+                    <i class="fas fa-thumbs-down" onclick="toggleLikeDislike(this, 'dislike')"></i>
+                    <a href="#" class="view-btn" onclick="openCommentModal('Project 1')">Comment</a>
+                </div>
+                <a href="feedback.html" class="view-btn">View Details</a>
+
+            </div>
+            <div class="project-card">
+                <h3>Project 2</h3>
+                <p>Project 2 Description...</p>
+                <div class="buttons">
+                    <i class="fas fa-thumbs-up" onclick="toggleLikeDislike(this, 'like')"></i>
+                    <i class="fas fa-thumbs-down" onclick="toggleLikeDislike(this, 'dislike')"></i>
+                    <a href="#" class="view-btn" onclick="openCommentModal('Project 2')">Comment</a>
+                </div>
+                <a href="feedback.html" class="view-btn">View Details</a>
+            </div>
+            <div class="project-card">
+                <h3>Project 3</h3>
+                <p>Project 3 Description...</p>
+                <div class="buttons">
+                    <i class="fas fa-thumbs-up" onclick="toggleLikeDislike(this, 'like')"></i>
+                    <i class="fas fa-thumbs-down" onclick="toggleLikeDislike(this, 'dislike')"></i>
+                    <a href="#" class="view-btn" onclick="openCommentModal('Project 3')">Comment</a>
+                </div>
+                <a href="feedback.html" class="view-btn">View Details</a>
+            </div>
+            <div class="project-card">
+                <h3>Project 4</h3>
+                <p>Project 4 Description...</p>
+                <div class="buttons">
+                    <i class="fas fa-thumbs-up" onclick="toggleLikeDislike(this, 'like')"></i>
+                    <i class="fas fa-thumbs-down" onclick="toggleLikeDislike(this, 'dislike')"></i>
+                    <a href="#" class="view-btn" onclick="openCommentModal('Project 4')">Comment</a>
+                </div>
+                <a href="feedback.html" class="view-btn">View Details</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Techfolio. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Comment Modal -->
+    <div id="commentModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Comment on <span id="projectName">Project</span></h2>
+            <textarea id="commentText" class="comment-box" placeholder="Write your comment..."></textarea>
+            <br>
+            <button class="submit-btn" onclick="submitComment()">Submit Comment</button>
+        </div>
+    </div>
+
+    <script>
+        // Like and Dislike Functionality
+        function toggleLikeDislike(element, type) {
+            if (type === 'like') {
+                const dislikeIcon = element.parentElement.querySelector('.fa-thumbs-down');
+                dislikeIcon.classList.remove('disliked');
+                dislikeIcon.style.color = '#7a5fb8'; 
+
+                if (element.classList.contains('liked')) {
+                    element.classList.remove('liked');
+                    element.style.color = '#7a5fb8';
+                } else {
+                    element.classList.add('liked');
+                    element.style.color = 'green';
+                }
+            } else {
+                const likeIcon = element.parentElement.querySelector('.fa-thumbs-up');
+                likeIcon.classList.remove('liked');
+                likeIcon.style.color = '#7a5fb8'; 
+
+                if (element.classList.contains('disliked')) {
+                    element.classList.remove('disliked');
+                    element.style.color = '#7a5fb8';
+                } else {
+                    element.classList.add('disliked');
+                    element.style.color = 'red';
+                }
+            }
+        }
+
+        // Modal functionalities
+        var modal = document.getElementById("commentModal");
+        var span = document.getElementsByClassName("close")[0];
+        
+        function openCommentModal(projectName) {
+            document.getElementById("projectName").innerText = projectName;
+            modal.style.display = "block";
+        }
+
+        function submitComment() {
+            var commentText = document.getElementById("commentText").value;
+            if (commentText.trim() === "") {
+                alert("Please write a comment before submitting.");
+            } else {
+                alert("Thank you for your comment!");
+                modal.style.display = "none";
+                document.getElementById("commentText").value = "";
+            }
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
