@@ -1,135 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Project</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f9f9f9;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        header {
-            background-color: #7a5fb8;
-            padding: 15px 0;
-            text-align: center;
-            color: white;
-        }
-        nav {
-            display: flex;
-            justify-content: space-between;
-            padding: 0 20px;
-        }
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-        .container {
-            width: 50%;
-            margin: auto;
-            padding: 30px;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 20px; /* Adjust this value for more or less curvature */
-            margin-top: 50px;
-            margin-bottom: 50px;
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #333;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-        label {
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-        input, textarea {
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px; /* Input and textarea rounded corners */
-        }
-        input[type="file"] {
-            padding: 5px;
-        }
-        .submit-btn {
-            background-color: #7a5fb8;
-            color: white;
-            padding: 12px;
-            border: none;
-            border-radius: 8px; /* Rounded corners for the submit button */
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .submit-btn:hover {
-            background-color: #6845a1;
-        }
-        footer {
-            background-color: #7a5fb8;
-            color: white;
-            text-align: center;
-            padding: 15px 0;
-            margin-top: auto;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+
 <body>
-    <header>
-        <nav>
-            <div class="nav-links">
-                <a href=index.html>Home</a>
-                <a href=features.html>Features</a>
-                <a href=projects.html>Projects</a>
-                <a href=upload.html>Upload Projects</a>
-                
+    <header class="py-3" style="background-color: #7a5fb8;">
+        <nav class="container d-flex justify-content-between">
+            <div class="d-flex">
+                <a class="text-white font-weight-bold mr-4" th:href="@{/dashboard}">Home</a>
+                <a class="text-white font-weight-bold mr-4" th:href="@{/features}">Features</a>
+                <a class="text-white font-weight-bold mr-4" th:href="@{/projects/myprojects}">My Projects</a>
+                <a class="text-white font-weight-bold mr-4" th:href="@{/upload}">Upload Project</a>
             </div>
-            <div>
-                <a href=index.html>Logout</a>
-            </div>
+            <a class="text-white font-weight-bold" th:href="@{/logout}">Logout</a>
         </nav>
     </header>
-    
-    <div class="container">
-        <h1>Upload Your Project</h1>
-        <form action="/upload" method="POST" enctype="multipart/form-data">
-            <label for="project-name">Project Name:</label>
-            <input type="text" id="project-name" name="project_name" required>
-            
-            <label for="description">Project Description:</label>
-            <textarea id="description" name="description" rows="5" required></textarea>
-            
-            <label for="video">Project Video:</label>
-            <input type="file" id="video" name="video">
-            
-            <label for="github-link">GitHub Repository Link:</label>
-            <input type="url" id="github-link" name="github_link" required>
 
-            <label for="deployed-url">Application Deployed URL:</label>
-            <input type="url" id="deployed-url" name="deployed_url" required>
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Upload Your Project</h1>
 
-            
-            <input type="submit" class="submit-btn" value="Upload Project">
+        <div th:if="${message}" class="alert alert-info" role="alert">
+            <span th:text="${message}"></span>
+        </div>
+
+        <form th:action="@{/projects/upload}" method="POST" enctype="multipart/form-data" class="bg-light p-4 rounded shadow">
+            <div class="form-group">
+                <label for="project-name">Project Name:</label>
+                <input type="text" id="project-name" name="project_name" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Project Description:</label>
+                <textarea id="description" name="description" rows="5" class="form-control" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="video">Project Video:</label>
+                <input type="file" id="video" name="video" class="form-control-file">
+            </div>
+
+            <div class="form-group">
+                <label for="github-link">GitHub Repository Link:</label>
+                <input type="url" id="github-link" name="github_link" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="deployed-url">Application Deployed URL:</label>
+                <input type="url" id="deployed-url" name="deployed_url" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-block" style="background-color: #7a5fb8; color: white;">Upload Project</button>
         </form>
     </div>
 
-    <footer>
+    <footer class="text-white text-center py-3 mt-auto" style="background-color: #7a5fb8;">
         <p>&copy; 2024 Techfolio. All Rights Reserved.</p>
     </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>

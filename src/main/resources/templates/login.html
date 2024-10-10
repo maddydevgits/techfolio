@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -135,7 +135,7 @@
     <header>
         <div class="logo">Techfolio</div>
         <nav>
-            <a href=index.html>Home</a>
+            <a href="/">Home</a>
 
 
         </nav>
@@ -145,7 +145,10 @@
     <!-- Login Form -->
     <div class="login-container">
         <h2>Login</h2>
-        <form action="/login" method="POST">
+        <div th:if="${message}" class="alert alert-info" role="alert">
+            <span th:text="${message}"></span>
+        </div>
+        <form th:action="@{/loginForm}" method="POST">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" placeholder="Enter your username" required>
@@ -158,8 +161,7 @@
         </form>
         
         <div class="login-footer">
-            <p>Don't have an account? <a href=signup.html>Sign up here</a></p>
-            <p>Forgot your password? <a href="#">Reset it here</a></p>
+            <p>Don't have an account? <a th:href="@{/signup}">Sign up here</a></p>
         </div>
     </div>
 

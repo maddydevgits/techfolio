@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Features</title>
+    <title>User Projects</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
@@ -119,8 +120,10 @@
         }
     </style>
 </head>
+
 <body>
-    <header>
+    <!-- Header Section -->
+    <header class="py-3">
         <nav class="container d-flex justify-content-between">
             <div class="d-flex">
                 <a class="text-white font-weight-bold" th:href="@{/dashboard}">Home</a>
@@ -131,67 +134,53 @@
             <a class="text-white font-weight-bold" th:href="@{/logout}">Logout</a>
         </nav>
     </header>
-    
-    <div class="container">
-        <h1>Features of Techfolio</h1>
+
+    <!-- Main Section -->
+    <div class="container my-5">
+        <h1 class="text-center mb-4">My Projects</h1>
+
+        <div th:if="${message}" class="alert alert-info" role="alert">
+            <span th:text="${message}"></span>
+        </div>
 
         <div class="project-grid">
-            <div class="project-card">
-                <i class="fas fa-upload"></i>
-                <h3>Easy Project Upload</h3>
-                <p>Upload your projects effortlessly and share them with the world. Add project descriptions, media, and GitHub links all in one place.</p>
-            </div>
+            <!-- Iterate over user's projects -->
+            <div th:each="project : ${projects}" class="project-card">
+                <h3 th:text="${project.projectName}">Project Name</h3>
+                <p th:text="${project.description}">Project Description</p>
 
-            <div class="project-card">
-                <i class="fas fa-code-branch"></i>
-                <h3>GitHub Integration</h3>
-                <p>Link your GitHub repositories to your projects for easy access to your source code.</p>
-            </div>
+                <!-- Display the project video -->
+                <div th:if="${project.videoPath}">
+                    <video width="320" height="240" controls>
+                        <source th:src="${project.videoPath}" type="video/mp4">
+                        Your browser does not support the video tag.
+                      </video>
+                </div>
 
-            <div class="project-card">
-                <i class="fas fa-video"></i>
-                <h3>Project Videos</h3>
-                <p>Showcase your project by uploading demonstration videos and help others understand your work better.</p>
-            </div>
+                <!-- Buttons for like, dislike, and comment -->
+                <div class="buttons">
+                    <i class="fas fa-thumbs-up" onclick="toggleLikeDislike(this, 'like')" title="Like"></i> <span th:text="${project.likes}"></span>
+                    <i class="fas fa-thumbs-down" onclick="toggleLikeDislike(this, 'dislike')" title="Dislike"></i> <span th:text="${project.dislikes}"></span>
+                    <a th:href="@{'/projects/details/' + ${project.id}}" class="view-btn">View Details</a>
+                </div>
 
-            <div class="project-card">
-                <i class="fas fa-users"></i>
-                <h3>Collaborate & Share</h3>
-                <p>Collaborate with other students, get feedback, and improve your projects by interacting with peers.</p>
-            </div>
+                <!-- GitHub Link -->
+                <a th:href="${project.githubLink}" class="view-btn d-block mt-2" target="_blank">View GitHub</a>
 
-            <div class="project-card">
-                <i class="fas fa-lightbulb"></i>
-                <h3>Project Recommendations</h3>
-                <p>Receive AI-powered recommendations for project improvements and optimizations based on user feedback.</p>
-            </div>
-
-            <div class="project-card">
-                <i class="fas fa-search"></i>
-                <h3>Explore Projects</h3>
-                <p>Browse through a collection of student projects, find inspiration, and connect with project creators.</p>
-            </div>
-
-            <!-- New Features -->
-            <div class="project-card">
-                <i class="fas fa-comment-alt"></i>
-                <h3>Feedback & Discussions</h3>
-                <p>Receive constructive feedback on your projects from other students and mentors, and engage in discussions to refine your work.</p>
-            </div>
-
-            <div class="project-card">
-                <i class="fas fa-trophy"></i>
-                <h3>Project Showcase</h3>
-                <p>Show off your best projects in our monthly showcase. Stand a chance to get featured and recognized for your hard work.</p>
+                <!-- Deployed URL -->
+                <a th:href="${project.deployedUrl}" class="view-btn d-block mt-2" target="_blank">View App</a>
             </div>
         </div>
     </div>
 
+    <!-- Footer Section -->
     <footer>
         <p>&copy; 2024 Techfolio. All Rights Reserved.</p>
     </footer>
 
-    <!-- Font Awesome Icons (for the icons) -->
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>
